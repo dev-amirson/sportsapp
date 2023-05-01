@@ -1,0 +1,66 @@
+{% load static %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Sports Tracker{% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <img  src="{% static 'img/e2e_logo.png' %}" alt="EndToEnd Innovations logo" height="25px">
+            <a class="navbar-brand" href="{% url 'home' %}">Sports Tracker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        {% if request.path == '/' %}
+                            <span class="nav-link link-light">Home</span>
+                        {% else %}
+                            <a class="nav-link link-light" href="{% url 'home' %}">Home</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if request.path == '/teams/' %}
+                            <span class="nav-link link-light">Teams</span>
+                        {% else %}
+                            <a class="nav-link link-light" href="{% url 'team_list' %}">Teams</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if request.path == '/players/' %}
+                            <span class="nav-link link-light">Players</span>
+                        {% else %}
+                            <a class="nav-link link-light" href="{% url 'player_list' %}">Players</a>
+                        {% endif %}
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link link-light" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link link-light">{{ request.user.email }}</span>
+                    </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link link-light" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <br>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

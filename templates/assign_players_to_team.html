@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Assign Players to {{ team.city }} {{ team.mascot }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for player in players %}
+        <div class="form-check">
+            <input class="form-check-input" name="players" type="checkbox" value="{{ player.id }}" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                {{ player.first_name }} {{ player.last_name }}
+            </label>
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>
+{% endblock %}

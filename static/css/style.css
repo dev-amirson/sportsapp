@@ -1,0 +1,23 @@
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 1em;
+}
+
+#header a {
+  margin-left: 1em;
+}
+
+#header span {
+  margin-left: 1em;
+}
+
+#header img {
+  height: 50px;
+}
+
+#content {
+  margin-top: 2em;
+}

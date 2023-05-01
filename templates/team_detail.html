@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ team.city }} {{ team.mascot }}</h1>
+    <h2>Players:</h2>
+    <p><a class="btn btn-primary" href="{% url 'assign_players_to_team' team.pk %}">Assign Players</a></p>
+    <ul class="list-group">
+        {% for player in team.player_set.all %}
+        <li class="list-group-item"><a class="list-group-item" href="{% url 'player_detail' player.id %}">{{ player.first_name }} {{ player.last_name }}</a></li>
+        {% empty %}
+        <li class="list-group-item">No players on this team.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

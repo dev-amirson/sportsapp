@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Teams</h1>
+  <p><a class="btn btn-primary" href="{% url 'team_create' %}">Create Team</a></p>
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th>City</th>
+        <th>Mascot</th>
+        <th>Players</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for team in teams %}
+        <tr>
+          <td>{{ team.city }}</td>
+          <td>{{ team.mascot }}</td>
+          <td>
+            {% if team.player_set %}
+              {% for player in team.player_set.all %}
+                {{ player.first_name }} {{ player.last_name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            {% else %}
+              No players found.
+            {% endif %}
+          </td>
+          <td>
+            <a class="btn btn-primary" href="{% url 'team_detail' team.pk %}">View</a>
+            <a class="btn btn-info" href="{% url 'team_update' team.pk %}">Edit</a>
+            <a class="btn btn-warning" href="{% url 'assign_players_to_team' team.pk %}">Assign Players</a>
+            <a class="btn btn-danger" href="{% url 'team_delete' team.pk %}">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No teams found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

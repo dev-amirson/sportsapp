@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ player.first_name }} {{ player.last_name }}</h1>
+    <h2>Teams:</h2>
+    <ul class="list-group">
+        {% for team in player.teams.all %}
+        <li class="list-group-item"><a class="list-group-item" href="{% url 'team_detail' team.id %}">{{ team.city }} {{ team.mascot }}</a></li>
+        {% empty %}
+        <li class="list-group-item">No teams for this player.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
